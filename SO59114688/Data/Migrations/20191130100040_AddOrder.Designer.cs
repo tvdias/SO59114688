@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SO59114688.Data;
 
 namespace SO59114688.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191130100040_AddOrder")]
+    partial class AddOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,35 +135,6 @@ namespace SO59114688.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SO59114688.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatorId");
-
-                    b.Property<double>("ExpectedDistance");
-
-                    b.Property<int>("ExpectedDuration");
-
-                    b.Property<string>("PublicOrderId");
-
-                    b.Property<string>("ReceiverId");
-
-                    b.Property<string>("SenderId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("SO59114688.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -268,21 +241,6 @@ namespace SO59114688.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SO59114688.Models.Order", b =>
-                {
-                    b.HasOne("SO59114688.Models.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
-
-                    b.HasOne("SO59114688.Models.User", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("SO59114688.Models.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
                 });
 #pragma warning restore 612, 618
         }
